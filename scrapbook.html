@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Collection of Little Things for You</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root {
+            --bg: #fdf2f0;
+            --fg: #4a2c2a;
+            --muted: #7a5c5a;
+            --accent: #c8873e;
+            --accent-glow: #e8b88a;
+            --pink-soft: #f5c6c0;
+            --gold: #c8943e;
+            --gold-soft: #f0d48a;
+            --card: #fffbf7;
+            --border: #e8d5d0;
+            --shadow-soft: rgba(180,120,100,0.15);
+            --shadow-deep: rgba(150,90,70,0.28);
+        }
+
+        *{margin:0;padding:0;box-sizing:border-box;}
+        html{scroll-behavior:smooth;}
+
+        body{
+            font-family:'Playfair Display',serif;
+            color:var(--fg);min-height:100vh;overflow-x:hidden;
+            position:relative;
+            background:
+                repeating-linear-gradient(0deg,transparent,transparent 28px,rgba(200,180,170,0.06) 28px,rgba(200,180,170,0.06) 29px),
+                repeating-linear-gradient(90deg,transparent,transparent 28px,rgba(200,180,170,0.04) 28px,rgba(200,180,170,0.04) 29px),
+                linear-gradient(170deg,#fdf5f0 0%,#faf0ea 30%,#fceee8 60%,#fdf4ef 100%);
+            background-attachment:fixed;
+        }
+
+        .bg-layer{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;overflow:hidden;}
+        .bg-glow{position:absolute;border-radius:50%;filter:blur(90px);opacity:0.35;}
+        .bg-glow-1{width:420px;height:420px;background:var(--pink-soft);top:-120px;left:-100px;animation:floatGlow 13s ease-in-out infinite;}
+        .bg-glow-2{width:360px;height:360px;background:var(--gold-soft);top:28%;right:-90px;animation:floatGlow 16s ease-in-out infinite reverse;}
+        .bg-glow-3{width:300px;height:300px;background:#f0d0e0;bottom:8%;left:18%;animation:floatGlow 19s ease-in-out infinite 3s;}
+        .bg-glow-4{width:260px;height:260px;background:#fce4c8;top:55%;right:25%;animation:floatGlow 14s ease-in-out infinite 5s;}
+        .bg-glow-5{width:200px;height:200px;background:#f8e0e8;top:70%;left:50%;animation:floatGlow 17s ease-in-out infinite 2s;}
+
+        @keyframes floatGlow{
+            0%,100%{transform:translate(0,0) scale(1);}
+            33%{transform:translate(30px,-25px) scale(1.1);}
+            66%{transform:translate(-25px,30px) scale(0.92);}
+        }
+
+        .bg-flower{position:absolute;border-radius:50%;filter:blur(60px);opacity:0.12;animation:flowerDrift 20s ease-in-out infinite;}
+        .bg-flower-1{width:180px;height:180px;background:#e8a0a0;top:15%;left:10%;}
+        .bg-flower-2{width:140px;height:140px;background:#d4a0d4;top:45%;right:8%;animation-delay:-7s;}
+        .bg-flower-3{width:160px;height:160px;background:#c8b080;bottom:20%;left:40%;animation-delay:-12s;}
+
+        @keyframes flowerDrift{
+            0%,100%{transform:translate(0,0) rotate(0deg);}
+            25%{transform:translate(20px,-15px) rotate(5deg);}
+            50%{transform:translate(-10px,20px) rotate(-3deg);}
+            75%{transform:translate(15px,10px) rotate(4deg);}
+        }
+
+        .petal{position:fixed;z-index:1;pointer-events:none;opacity:0;animation:petalFall linear infinite;}
+        @keyframes petalFall{
+            0%{opacity:0;transform:translateY(-5vh) rotate(0deg) translateX(0);}
+            8%{opacity:0.65;}85%{opacity:0.4;}
+            100%{opacity:0;transform:translateY(105vh) rotate(540deg) translateX(80px);}
+        }
+
+        .sparkle{position:fixed;border-radius:50%;z-index:1;pointer-events:none;animation:sparkleAnim ease-in-out infinite;}
+        @keyframes sparkleAnim{0%,100%{opacity:0;transform:scale(0);}50%{opacity:0.85;transform:scale(1);}}
+
+        .fairy-lights{position:fixed;top:0;left:0;width:100%;height:100%;z-index:1;pointer-events:none;overflow:hidden;}
+        .fairy-light{position:absolute;border-radius:50%;animation:fairyGlow ease-in-out infinite;}
+        @keyframes fairyGlow{
+            0%,100%{opacity:0.15;box-shadow:0 0 3px currentColor;}
+            50%{opacity:0.85;box-shadow:0 0 10px currentColor,0 0 20px currentColor;}
+        }
+
+        .page-content{position:relative;z-index:2;padding:50px 24px 70px;max-width:1400px;margin:0 auto;}
+
+        .page-header{text-align:center;margin-bottom:55px;animation:fadeInDown 1.2s ease-out;}
+        .page-header h1{
+            font-family:'Dancing Script',cursive;font-size:clamp(2.2rem,5.5vw,3.8rem);
+            color:var(--fg);margin-bottom:12px;font-weight:700;
+            text-shadow:0 2px 10px rgba(200,150,80,0.18);line-height:1.3;
+        }
+        .page-header .subtitle{font-style:italic;font-size:clamp(0.95rem,2.2vw,1.2rem);color:var(--muted);font-weight:400;}
+        .page-header .hint{
+            display:inline-block;margin-top:20px;font-family:'Dancing Script',cursive;
+            font-size:1.15rem;color:var(--accent);animation:gentlePulse 3s ease-in-out infinite;
+        }
+        .page-header .divider-line{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:18px;}
+        .page-header .divider-line span{height:1px;width:60px;background:linear-gradient(90deg,transparent,var(--border),transparent);}
+        .page-header .divider-line i{color:var(--pink-soft);font-size:0.7rem;}
+
+        @keyframes gentlePulse{0%,100%{opacity:0.65;}50%{opacity:1;}}
+        @keyframes fadeInDown{from{opacity:0;transform:translateY(-35px);}to{opacity:1;transform:translateY(0);}}
+
+        .memory-grid{
+            display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));
+            gap:20px;padding:8px;
+        }
+        @media(min-width:500px){.memory-grid{grid-template-columns:repeat(auto-fill,minmax(165px,1fr));gap:22px;}}
+        @media(min-width:700px){.memory-grid{grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:24px;}}
+        @media(min-width:900px){.memory-grid{grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:26px;}}
+        @media(min-width:1200px){.memory-grid{grid-template-columns:repeat(6,1fr);gap:28px;}}
+        @media(min-width:1500px){.memory-grid{grid-template-columns:repeat(7,1fr);gap:30px;}}
+
+        .memory-box{
+            position:relative;aspect-ratio:1;border-radius:20px;cursor:pointer;
+            transition:transform 0.45s cubic-bezier(0.175,0.885,0.32,1.275),box-shadow 0.45s ease;
+            display:flex;align-items:center;justify-content:center;
+            overflow:hidden;animation:boxAppear 0.7s ease-out backwards;
+            transform-style:preserve-3d;perspective:600px;
+        }
+        .memory-box::before{
+            content:'';position:absolute;top:0;left:0;width:100%;height:100%;
+            background:linear-gradient(135deg,rgba(255,255,255,0.35) 0%,rgba(255,255,255,0.05) 40%,transparent 60%);
+            pointer-events:none;z-index:3;border-radius:inherit;
+        }
+        .memory-box::after{
+            content:'';position:absolute;bottom:0;left:10%;right:10%;height:30%;
+            background:radial-gradient(ellipse at center,rgba(0,0,0,0.06),transparent 70%);
+            pointer-events:none;z-index:1;border-radius:inherit;
+        }
+        .memory-box:hover{
+            transform:translateY(-12px) scale(1.04) rotateX(2deg);
+            box-shadow:0 22px 45px var(--shadow-deep),0 0 35px rgba(200,150,80,0.12);
+        }
+        .memory-box:active{transform:translateY(-5px) scale(0.97);transition-duration:0.15s;}
+
+        .memory-box .box-emoji{
+            font-size:3.2rem;position:relative;z-index:2;
+            filter:drop-shadow(0 4px 8px rgba(0,0,0,0.1));
+            transition:transform 0.35s ease;animation:gentleFloat 4.5s ease-in-out infinite;
+        }
+        .memory-box:hover .box-emoji{transform:scale(1.18) translateY(-3px);}
+
+        @keyframes gentleFloat{0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);}}
+        @keyframes boxAppear{from{opacity:0;transform:translateY(45px) scale(0.88) rotateX(5deg);}to{opacity:1;transform:translateY(0) scale(1) rotateX(0deg);}}
+
+        .box-vintage{background:linear-gradient(150deg,#faf0e6,#f3e4d4);border:2px solid #e0cbb8;box-shadow:0 8px 28px var(--shadow-soft),inset 0 1px 0 rgba(255,255,255,0.6),0 1px 3px rgba(0,0,0,0.04);}
+        .box-rose{background:linear-gradient(150deg,#fce8e6,#f4cfcf);border:2px solid #e4b4b4;box-shadow:0 8px 28px rgba(230,150,150,0.18),inset 0 1px 0 rgba(255,255,255,0.55),0 1px 3px rgba(0,0,0,0.04);}
+        .box-gold{background:linear-gradient(150deg,#faf2de,#f4e4c0);border:2px solid #dcc48a;box-shadow:0 8px 28px rgba(200,160,70,0.14),inset 0 1px 0 rgba(255,255,255,0.55),0 1px 3px rgba(0,0,0,0.04);}
+        .box-lavender{background:linear-gradient(150deg,#f0e6f5,#e6d4ee);border:2px solid #ccb8dc;box-shadow:0 8px 28px rgba(170,140,200,0.13),inset 0 1px 0 rgba(255,255,255,0.55),0 1px 3px rgba(0,0,0,0.04);}
+        .box-mint{background:linear-gradient(150deg,#e6f4ee,#d4eede);border:2px solid #b0d4c0;box-shadow:0 8px 28px rgba(140,200,160,0.13),inset 0 1px 0 rgba(255,255,255,0.55),0 1px 3px rgba(0,0,0,0.04);}
+        .box-peach{background:linear-gradient(150deg,#fef0e6,#fcdcc8);border:2px solid #eeb898;box-shadow:0 8px 28px rgba(240,170,130,0.14),inset 0 1px 0 rgba(255,255,255,0.55),0 1px 3px rgba(0,0,0,0.04);}
+        .box-envelope{background:linear-gradient(150deg,#fff8f0,#f6ede2);border:2px solid #ddd0c0;box-shadow:0 8px 28px var(--shadow-soft),inset 0 1px 0 rgba(255,255,255,0.6),0 1px 3px rgba(0,0,0,0.04);}
+        .box-envelope .envelope-flap{position:absolute;top:0;left:0;width:100%;height:42%;background:linear-gradient(180deg,rgba(255,255,255,0.45),transparent);clip-path:polygon(0 0,50% 65%,100% 0);pointer-events:none;z-index:4;}
+        .box-gift{background:linear-gradient(150deg,#fce6e4,#f6c8c8);border:2px solid #dea0a0;box-shadow:0 8px 28px rgba(220,130,130,0.18),inset 0 1px 0 rgba(255,255,255,0.5),0 1px 3px rgba(0,0,0,0.04);}
+        .box-gift .ribbon-v{position:absolute;top:0;bottom:0;left:50%;width:14px;transform:translateX(-50%);background:linear-gradient(90deg,transparent,rgba(255,255,255,0.35),transparent);pointer-events:none;z-index:4;}
+        .box-gift .ribbon-h{position:absolute;left:0;right:0;top:50%;height:14px;transform:translateY(-50%);background:linear-gradient(180deg,transparent,rgba(255,255,255,0.3),transparent);pointer-events:none;z-index:4;}
+        .box-polaroid{background:#fffef6;border:1px solid #ddd6cc;box-shadow:0 6px 22px var(--shadow-soft),0 2px 5px rgba(0,0,0,0.04);padding:16px;}
+        .box-journal{background:linear-gradient(150deg,#f8f3ec,#efe8dc);border:2px solid #d4caba;box-shadow:0 8px 28px var(--shadow-soft),inset 0 1px 0 rgba(255,255,255,0.5),0 1px 3px rgba(0,0,0,0.04);}
+        .box-journal .journal-lines{position:absolute;top:15%;bottom:15%;left:22px;right:12px;background:repeating-linear-gradient(to bottom,transparent,transparent 9px,rgba(200,185,170,0.25) 9px,rgba(200,185,170,0.25) 10px);pointer-events:none;z-index:1;border-radius:4px;}
+        .box-journal .journal-spine{position:absolute;left:0;top:0;bottom:0;width:18px;background:linear-gradient(90deg,rgba(180,160,140,0.15),rgba(180,160,140,0.05));border-right:1px solid rgba(180,160,140,0.2);pointer-events:none;z-index:4;border-radius:20px 0 0 20px;}
+
+        .washi-tape{position:absolute;z-index:5;pointer-events:none;width:55px;height:18px;border-radius:2px;opacity:0.7;}
+        .washi-tape.top-left{top:-5px;left:12px;transform:rotate(-8deg);}
+        .washi-tape.top-right{top:-5px;right:12px;transform:rotate(6deg);}
+        .washi-tape-pink{background:rgba(245,180,175,0.5);}
+        .washi-tape-gold{background:rgba(220,190,120,0.45);}
+        .washi-tape-green{background:rgba(160,210,170,0.4);}
+
+        .popup-overlay{
+            position:fixed;top:0;left:0;width:100%;height:100%;z-index:1000;
+            display:flex;align-items:center;justify-content:center;
+            background:rgba(50,25,25,0.45);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+            opacity:0;visibility:hidden;transition:opacity 0.45s ease,visibility 0.45s ease;padding:20px;
+        }
+        .popup-overlay.active{opacity:1;visibility:visible;}
+
+        .popup-card{
+            position:relative;width:100%;max-width:460px;max-height:85vh;overflow-y:auto;
+            background:linear-gradient(175deg,#fffbf4,#faf2e8,#fff7f0,#fffcf6);
+            border-radius:26px;border:2px solid #e4d8ca;
+            box-shadow:0 35px 90px rgba(90,50,35,0.28),0 12px 35px rgba(90,50,35,0.15),inset 0 2px 0 rgba(255,255,255,0.8),inset 0 -2px 8px rgba(200,170,140,0.08);
+            padding:44px 34px 34px;
+            transform:scale(0.82) translateY(35px);opacity:0;
+            transition:transform 0.55s cubic-bezier(0.175,0.885,0.32,1.275),opacity 0.4s ease;
+        }
+        .popup-overlay.active .popup-card{transform:scale(1) translateY(0);opacity:1;}
+        .popup-card::before{
+            content:'';position:absolute;top:0;left:0;width:100%;height:100%;
+            background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.028'/%3E%3C/svg%3E");
+            border-radius:26px;pointer-events:none;z-index:0;
+        }
+        .popup-deco{position:absolute;font-size:1.4rem;opacity:0.25;pointer-events:none;z-index:0;}
+        .popup-deco.tl{top:14px;left:16px;transform:rotate(-18deg);}
+        .popup-deco.tr{top:14px;right:16px;transform:rotate(18deg);}
+        .popup-deco.bl{bottom:14px;left:16px;transform:rotate(18deg);}
+        .popup-deco.br{bottom:14px;right:16px;transform:rotate(-18deg);}
+
+        .popup-close{
+            position:absolute;top:16px;right:16px;width:38px;height:38px;border:none;
+            background:rgba(180,140,120,0.08);border-radius:50%;cursor:pointer;
+            display:flex;align-items:center;justify-content:center;
+            font-size:0.95rem;color:var(--muted);transition:all 0.35s ease;z-index:10;
+        }
+        .popup-close:hover{background:rgba(180,140,120,0.22);color:var(--fg);transform:rotate(90deg) scale(1.1);}
+        .popup-close:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+
+        .popup-emoji{font-size:2.8rem;text-align:center;margin-bottom:10px;position:relative;z-index:1;animation:popIn 0.5s ease-out 0.15s backwards;}
+        .popup-title{font-family:'Dancing Script',cursive;font-size:1.9rem;text-align:center;color:var(--fg);margin-bottom:14px;position:relative;z-index:1;font-weight:700;animation:popIn 0.5s ease-out 0.2s backwards;}
+        .popup-divider{width:70px;height:2px;margin:0 auto 22px;background:linear-gradient(90deg,transparent,var(--accent),transparent);position:relative;z-index:1;animation:popIn 0.5s ease-out 0.25s backwards;}
+        .popup-message{font-style:italic;font-size:1.02rem;line-height:1.85;color:var(--muted);text-align:center;margin-bottom:26px;position:relative;z-index:1;animation:popIn 0.5s ease-out 0.3s backwards;}
+        .popup-links{display:flex;flex-direction:column;gap:10px;position:relative;z-index:1;animation:popIn 0.5s ease-out 0.38s backwards;}
+
+        @keyframes popIn{from{opacity:0;transform:translateY(15px);}to{opacity:1;transform:translateY(0);}}
+
+        .popup-link{display:flex;align-items:center;justify-content:center;gap:9px;padding:11px 22px;border-radius:14px;text-decoration:none;font-family:'Dancing Script',cursive;font-size:1.08rem;font-weight:500;transition:all 0.3s ease;border:1.5px solid;}
+        .popup-link:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+        .popup-link-song{background:rgba(245,190,185,0.15);border-color:rgba(228,160,155,0.35);color:#b85858;}
+        .popup-link-song:hover{background:rgba(245,190,185,0.32);transform:translateX(5px);}
+        .popup-link-video{background:rgba(195,175,240,0.12);border-color:rgba(175,148,215,0.3);color:#7a58a8;}
+        .popup-link-video:hover{background:rgba(195,175,240,0.25);transform:translateX(5px);}
+        .popup-link-image{background:rgba(170,215,175,0.15);border-color:rgba(140,195,150,0.3);color:#5a7a5a;}
+        .popup-link-image:hover{background:rgba(170,215,175,0.3);transform:translateX(5px);}
+        .popup-link-url{background:rgba(200,150,70,0.1);border-color:rgba(200,150,70,0.25);color:var(--accent);}
+        .popup-link-url:hover{background:rgba(200,150,70,0.2);transform:translateX(5px);}
+
+        .popup-card::-webkit-scrollbar{width:5px;}
+        .popup-card::-webkit-scrollbar-track{background:transparent;}
+        .popup-card::-webkit-scrollbar-thumb{background:rgba(180,140,120,0.25);border-radius:3px;}
+
+        .page-footer{text-align:center;margin-top:50px;animation:fadeInDown 1.2s ease-out 0.5s backwards;}
+        .page-footer p{font-family:'Dancing Script',cursive;font-size:1rem;color:rgba(122,92,90,0.4);}
+
+        @media(max-width:520px){
+            .memory-grid{grid-template-columns:repeat(2,1fr);gap:14px;}
+            .page-content{padding:28px 10px 40px;}
+            .popup-card{padding:36px 20px 26px;border-radius:20px;}
+            .popup-title{font-size:1.55rem;}
+            .memory-box .box-emoji{font-size:2.6rem;}
+            .popup-link{padding:9px 16px;font-size:1rem;}
+        }
+        @media(max-width:380px){
+            .memory-grid{grid-template-columns:repeat(2,1fr);gap:10px;}
+            .memory-box .box-emoji{font-size:2.2rem;}
+        }
+
+        @media(prefers-reduced-motion:reduce){
+            *,*::before,*::after{animation-duration:0.01ms!important;animation-iteration-count:1!important;transition-duration:0.15s!important;}
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-layer" aria-hidden="true">
+        <div class="bg-glow bg-glow-1"></div>
+        <div class="bg-glow bg-glow-2"></div>
+        <div class="bg-glow bg-glow-3"></div>
+        <div class="bg-glow bg-glow-4"></div>
+        <div class="bg-glow bg-glow-5"></div>
+        <div class="bg-flower bg-flower-1"></div>
+        <div class="bg-flower bg-flower-2"></div>
+        <div class="bg-flower bg-flower-3"></div>
+    </div>
+    <div class="fairy-lights" aria-hidden="true" id="fairyLights"></div>
+    <div id="petalsContainer" aria-hidden="true"></div>
+    <div id="sparklesContainer" aria-hidden="true"></div>
+
+    <main class="page-content">
+        <header class="page-header">
+            <h1>A Collection of Little Things for You</h1>
+            <p class="subtitle">Every box holds a piece of my heart for you</p>
+            <div class="divider-line">
+                <span></span>
+                <i class="fas fa-heart"></i>
+                <span></span>
+            </div>
+            <p class="hint">Click on any box to open a message</p>
+        </header>
+
+        <section class="memory-grid" id="memoryGrid" aria-label="Memory boxes"></section>
+
+        <footer class="page-footer">
+            <p>Made with love, just for you</p>
+        </footer>
+    </main>
+
+    <div class="popup-overlay" id="popupOverlay" role="dialog" aria-modal="true" aria-hidden="true">
+        <div class="popup-card" id="popupCard">
+            <button class="popup-close" id="popupClose" aria-label="Close message">
+                <i class="fas fa-times"></i>
+            </button>
+            <span class="popup-deco tl">🌸</span>
+            <span class="popup-deco tr">🌺</span>
+            <span class="popup-deco bl">🌷</span>
+            <span class="popup-deco br">✿</span>
+            <div class="popup-emoji" id="popupEmoji"></div>
+            <h2 class="popup-title" id="popupTitle"></h2>
+            <div class="popup-divider"></div>
+            <p class="popup-message" id="popupMessage"></p>
+            <div class="popup-links" id="popupLinks"></div>
+        </div>
+    </div>
+
+    <script>
+    // ======================================================
+    // MEMORY DATA — Edit all memories here
+    // emoji, title, message, songLink, videoLink, imageLink, urlLink
+    // Leave any link as "" to hide it
+    // ======================================================
+    const memories = [
+        { emoji:"🪷", title:"My Peace", message:"In a world full of noise, you are my silence. The calm that settles in my chest when I think of you is unlike anything I've ever known.", songLink:"", videoLink:"", imageLink:"", urlLink:"" },
+        { emoji:"🌹", title:"First Love", message:"Some people search their whole lives for what I found the day I met you. You are my once in a lifetime.", songLink:"", videoLink:"", imageLink:"", urlLink:"" },
+        { emoji:"🌙", title:"Night Thoughts", message:"Every night before I sleep, I think of you. You are the last beautiful thought that carries me into dreams.", songLink:"", videoLink:"", imageLink:"", urlLink:"" },
+        { emoji:"💌", title:"Unsaid Words", message:"There are a thousand things I haven't said yet. Not because I don't feel them, but because words feel too small for what you mean to me.", songLink:"", videoLink:"", imageLink:"", urlLink:"" },
+        { emoji:"🦋", title:"Butterflies", message:"Even after all this time, you still give me butterflies. That feeling in my stomach when you smile — it never fades.", songLink:"", videoLink:"", imageLink:"", urlLink:"" },
+        { emoji:"💖", title:"Safe Place", message:"You are the calm to my chaos. When the world gets too loud, your voice is the only thing that makes sense.", songLink:"", videoLink:"", imageLink:"", urlLink:"" },
+        { emoji:"🎵", title:"Our Song", message:"Every love story has a soundtrack. Ours plays in my heart on repeat, and I never want to skip a single note.", songLink:"", videoLink:"", imageLink:"", urlLink:"" },
+        { emoji:"📷", title:"Captured Moments", message:"Some moments are too beautiful to forget. I wish I could photograph every second I spend with you.", songLink:"", videoLink:"", imageLink:"", urlLink:"" },
+        { emoji:"🎀", title:"Sweet Gift", message:"You are the prettiest thing life ever gifted me. Wrapped in love, tied with patience, and filled with everything good.", songLink:"", videoLink:"", imageLink:"", urlLink:"" },
+        { emoji:"🕊️", title:"Freedom in Love", message:"With you, I don't have to pretend. I can be messy, real, and completely myself — and that is the greatest freedom.", songLink:"", videoLink:"", imageLink:"", urlLink:"" },
+        { emoji:"🌺", title:"Blooming Love", message:"Love with you didn't happen all at once. It bloomed slowly, petal by petal, until my entire garden was yours.", songLink:"", videoLink:"", imageLink:"", urlLink:"" },
+        { emoji:"💕", title:"Two Hearts", message:"They say two hearts beat as one when they're truly in love. I believe it, because mine only feels whole when you're near.", songLink:"", videoLink:"", imageLink:"", urlLink:"" },
+        { emoji:"✨", title:"Magic", message:"You turned my ordinary days into something magical. Every moment with you sparkles like starlight on water.", songLink:"", videoLink:"", imageLink:"", urlLink:"" },
+        { emoji:"🌸", title:"Cherry Blossoms", message:"Like cherry blossoms in spring, your love fills my world with color. Gentle, beautiful, and always returning.", songLink:"", videoLink:"", imageLink:"", urlLink:"" },
+        { emoji:"🌻", title:"Sunshine", message:"You are my sunshine on the darkest days. Your smile alone can light up my entire world.", songLink:"", videoLink:"", imageLink:"", urlLink:"" },
+        { emoji:"🍁", title:"Autumn Love", message:"Some love stories begin in spring, but ours feels like autumn — warm, golden, and deeply comforting.", songLink:"", videoLink:"", imageLink:"", urlLink:"" },
+        { emoji:"🌹", title:"Deep Roots", message:"Our love isn't just flowers and sunshine. It has deep roots that hold firm through every storm.", songLink:"", videoLink:"", imageLink:"", urlLink:"" },
+        { emoji:"🌙", title:"Moonlight Walks", message:"I could spend a thousand nights under the moonlight with you and it still wouldn't be enough.", songLink:"", videoLink:"", imageLink:"", urlLink:"" },
+        { emoji:"💌", title:"Love Letters", message:"If I wrote you a love letter every day, I'd run out of paper before I ran out of things to say.", songLink:"", videoLink:"", imageLink:"", urlLink:"" },
+        { emoji:"🦋", title:"Transformation", message:"Loving you changed me in the most beautiful way. I became a better version of myself, simply because you believed in me.", songLink:"", videoLink:"", imageLink:"", urlLink:"" },
+        { emoji:"💖", title:"Forever Yours", message:"If forever had a shape, it would look like the way you look at me. If it had a sound, it would be your laughter.", songLink:"", videoLink:"", imageLink:"", urlLink:"" },
+        { emoji:"🎵", title:"Melody of Us", message:"Our story is my favorite song. I know every word, every note, every pause — and I'd listen to it forever.", songLink:"", videoLink:"", imageLink:"", urlLink:"" },
+        { emoji:"📷", title:"Unforgettable", message:"No camera could ever capture how beautiful you look when you're truly happy. But I keep trying anyway.", songLink:"", videoLink:"", imageLink:"", urlLink:"" },
+        { emoji:"🎀", title:"Gentle Love", message:"The way you love me is gentle — like a whisper that says everything without raising its voice.", songLink:"", videoLink:"", imageLink:"", urlLink:"" },
+        { emoji:"🕊️", title:"Pure Heart", message:"In a complicated world, your love is the simplest, purest thing I know. And I will protect it with everything I have.", songLink:"", videoLink:"", imageLink:"", urlLink:"" },
+        { emoji:"🪷", title:"Lotus Heart", message:"Like a lotus, you rose through the mud and bloomed into something extraordinary. I am in awe of you, always.", songLink:"", videoLink:"", imageLink:"", urlLink:"" },
+        { emoji:"✨", title:"Starlight", message:"If I could give you the stars, I would. But you already carry more light in your heart than the entire sky.", songLink:"", videoLink:"", imageLink:"", urlLink:"" },
+        { emoji:"🌹", title:"Eternal Rose", message:"A rose that never fades — that's what my love for you is. Timeless, unwilting, and forever yours.", songLink:"", videoLink:"", imageLink:"", urlLink:"" },
+        { emoji:"🌺", title:"Tropical Warmth", message:"You bring warmth wherever you go. Like a tropical breeze, your presence makes everything feel alive and beautiful.", songLink:"", videoLink:"", imageLink:"", urlLink:"" },
+        { emoji:"💕", title:"Connected Souls", message:"I don't know what I did to deserve you, but I know I'll spend the rest of my life being grateful.", songLink:"", videoLink:"", imageLink:"", urlLink:"" },
+        { emoji:"🌸", title:"Petal Soft", message:"Your love is soft like petals, but strong enough to hold my entire world together.", songLink:"", videoLink:"", imageLink:"", urlLink:"" },
+        { emoji:"🌻", title:"Always Bright", message:"No matter how dark the night gets, I know the sun will rise — because you taught me that light always returns.", songLink:"", videoLink:"", imageLink:"", urlLink:"" },
+        { emoji:"💌", title:"Hidden Note", message:"I hid a piece of my heart in every little thing I do for you. One day you'll find them all, and you'll know — it was always you.", songLink:"", videoLink:"", imageLink:"", urlLink:"" },
+        { emoji:"🦋", title:"Delicate Wings", message:"Love isn't about holding on tight. It's about giving someone wings and trusting they'll fly back to you.", songLink:"", videoLink:"", imageLink:"", urlLink:"" },
+        { emoji:"🌙", title:"Dreams of You", message:"My dreams are just my reality with you, painted in softer colors and wrapped in perfect silence.", songLink:"", videoLink:"", imageLink:"", urlLink:"" },
+        { emoji:"💖", title:"Whole Heart", message:"I didn't know my heart was missing a piece until you came along and filled it so perfectly that I forgot it was ever broken.", songLink:"", videoLink:"", imageLink:"", urlLink:"" },
+        { emoji:"✨", title:"Shining Bright", message:"You didn't just enter my life — you illuminated it. Every corner, every shadow, every hidden place — you made it glow.", songLink:"", videoLink:"", imageLink:"", urlLink:"" },
+
+        // ——— 30 ADDITIONAL BOXES ———
+        { emoji:"🍀", title:"Lucky Charm", message:"Meeting you was the luckiest moment of my life. I must have done something right in a past life to deserve this.", songLink:"", videoLink:"", imageLink:"", urlLink:"" },
+        { emoji:"🫧", title:"Bubbles of Joy", message:"You make happiness feel light and bubbly, floating up inside me until I can't help but smile.", songLink:"", videoLink:"", imageLink:"", urlLink:"" },
+        { emoji:"🕯️", title:"Candlelight", message:"Even the smallest flame can light up a dark room. That's what your love does to my darkest days.", songLink:"", videoLink:"", imageLink:"", urlLink:"" },
+        { emoji:"🌹", title:"Red Rose", message:"A single red rose can say more than a thousand words. So here's mine — for you, always.", songLink:"", videoLink:"", imageLink:"", urlLink:"" },
+        { emoji:"🌷", title:"Tulip Promise", message:"Tulips represent perfect love. And ours — imperfect as it may be — feels absolutely perfect to me.", songLink:"", videoLink:"", imageLink:"", urlLink:"" },
+        { emoji:"💐", title:"Wildflower Bouquet", message:"You are a bouquet of wildflowers — untamed, colorful, and impossibly beautiful just the way you are.", songLink:"", videoLink:"", imageLink:"", urlLink:"" },
+        { emoji:"🪻", title:"Lavender Dreams", message:"Lavender calms the soul. Your presence does the same to me — soothing, gentle, and healing.", songLink:"", videoLink:"", imageLink:"", urlLink:"" },
+        { emoji:"🌼", title:"Daisy Smile", message:"A daisy is simple yet so cheerful — just like your smile. It lights up everything around it.", songLink:"", videoLink:"", imageLink:"", urlLink:"" },
+        { emoji:"💮", title:"White Blossom", message:"Pure, innocent, and full of quiet beauty — that's what our love feels like at its deepest.", songLink:"", videoLink:"", imageLink:"", urlLink:"" },
+        { emoji:"🏵️", title:"Royal Flower", message:"You deserve to be treated like royalty. In my heart, you already wear a crown.", songLink:"", videoLink:"", imageLink:"", urlLink:"" },
+        { emoji:"🎵", title:"Humming Tune", message:"I catch myself humming love songs without realizing it. That's what you do to me — music just flows.", songLink:"", videoLink:"", imageLink:"", urlLink:"" },
+        { emoji:"🎶", title:"Notes of Love", message:"Every note I hear reminds me of you. You are the melody that plays softly in the background of my life.", songLink:"", videoLink:"", imageLink:"", urlLink:"" },
+        { emoji:"🎸", title:"Heartstrings", message:"You didn't just capture my heart — you played it like a guitar, and every chord resonates with love.", songLink:"", videoLink:"", imageLink:"", urlLink:"" },
+        { emoji:"🎹", title:"Piano Keys", message:"Our love story unfolds like a beautiful piano piece — sometimes soft, sometimes powerful, always moving.", songLink:"", videoLink:"", imageLink:"", urlLink:"" },
+        { emoji:"🎻", title:"Serenade", message:"If I could play violin, I'd serenade you every night under your window. For now, my words will have to do.", songLink:"", videoLink:"", imageLink:"", urlLink:"" },
+        { emoji:"🔔", title:"Wedding Bells", message:"I hear wedding bells in my future. And every ring sounds like your name.", songLink:"", videoLink:"", imageLink:"", urlLink:"" },
+        { emoji:"🎞️", title:"Film Reel", message:"If our life together was a movie, I'd watch it on repeat forever. Every scene is my favorite.", songLink:"", videoLink:"", imageLink:"", urlLink:"" },
+        { emoji:"🎬", title:"Our Movie", message:"We're the leads in the most beautiful love story ever written. And the best part? It never ends.", songLink:"", videoLink:"", imageLink:"", urlLink:"" },
+        { emoji:"📸", title:"Snapshot", message:"I take mental snapshots of every moment with you. They're my most treasured possessions.", songLink:"", videoLink:"", imageLink:"", urlLink:"" },
+        { emoji:"🪞", title:"Mirror of Love", message:"When I look at you, I see the best version of myself reflected back. You make me want to be better.", songLink:"", videoLink:"", imageLink:"", urlLink:"" },
+        { emoji:"🗝️", title:"Key to My Heart", message:"You hold the only key that matters. And you used it the day you said you loved me.", songLink:"", videoLink:"", imageLink:"", urlLink:"" },
+        { emoji:"🔒", title:"Locked Hearts", message:"Our hearts are locked together with a love that no force on earth could break apart.", songLink:"", videoLink:"", imageLink:"", urlLink:"" },
+        { emoji:"💖", title:"Beating Heart", message:"My heart beats for one person and one person only. Can you guess who?", songLink:"", videoLink:"", imageLink:"", urlLink:"" },
+        { emoji:"💝", title:"Gift Heart", message:"My heart isn't just yours — it's a gift I give you willingly, joyfully, every single day.", songLink:"", videoLink:"", imageLink:"", urlLink:"" },
+        { emoji:"💞", title:"Revolving Hearts", message:"Our love spins around and around, but it never gets dizzy. It only gets stronger.", songLink:"", videoLink:"", imageLink:"", urlLink:"" },
+        { emoji:"🌸", title:"Spring Promise", message:"Every spring, the world blooms again. And every day with you, my love does the same.", songLink:"", videoLink:"", imageLink:"", urlLink:"" },
+        { emoji:"🌿", title:"Growing Together", message:"Like vines intertwined, we grow together — stronger, taller, and more beautiful with each passing day.", songLink:"", videoLink:"", imageLink:"", urlLink:"" },
+        { emoji:"🍃", title:"Falling Leaves", message:"Even when things fall apart around us, we fall into each other. And that's the most beautiful kind of falling.", songLink:"", videoLink:"", imageLink:"", urlLink:"" },
+        { emoji:"🌾", title:"Golden Fields", message:"Our love stretches out like golden wheat fields — endless, warm, and swaying gently in the breeze of time.", songLink:"", videoLink:"", imageLink:"", urlLink:"" },
+        { emoji:"🍄", title:"Little Wonder", message:"Life is full of little wonders, and you are the greatest one I've ever discovered.", songLink:"", videoLink:"", imageLink:"", urlLink:"" }
+    ];
+
+    // ======================================================
+    // BOX STYLE CONFIGURATION
+    // ======================================================
+    const boxStyleClasses = ['vintage','rose','gold','lavender','mint','peach','envelope','gift','polaroid','journal'];
+    const washiConfigs = [
+        { position:'top-left', color:'pink' },
+        { position:'top-right', color:'gold' },
+        { position:'top-left', color:'green' },
+        null, null, null
+    ];
+
+    function buildBoxHTML(mem, index) {
+        const styleClass = boxStyleClasses[index % boxStyleClasses.length];
+        const washi = washiConfigs[index % washiConfigs.length];
+        let innerExtras = '';
+
+        if (styleClass === 'envelope') innerExtras += '<div class="envelope-flap"></div>';
+        else if (styleClass === 'gift') innerExtras += '<div class="ribbon-v"></div><div class="ribbon-h"></div>';
+        else if (styleClass === 'journal') innerExtras += '<div class="journal-lines"></div><div class="journal-spine"></div>';
+
+        if (washi) innerExtras += `<div class="washi-tape ${washi.position} washi-tape-${washi.color}"></div>`;
+
+        return `${innerExtras}<span class="box-emoji" style="animation-delay:${(index * 0.37) % 4.5}s">${mem.emoji}</span>`;
+    }
+
+    // ======================================================
+    // RENDER MEMORY BOXES
+    // ======================================================
+    const grid = document.getElementById('memoryGrid');
+
+    memories.forEach((mem, i) => {
+        const box = document.createElement('div');
+        const styleClass = boxStyleClasses[i % boxStyleClasses.length];
+        box.className = `memory-box box-${styleClass}`;
+        box.style.animationDelay = `${i * 0.04}s`;
+        box.setAttribute('role', 'button');
+        box.setAttribute('tabindex', '0');
+        box.setAttribute('aria-label', `Open memory: ${mem.title}`);
+        box.innerHTML = buildBoxHTML(mem, i);
+        box.addEventListener('click', () => openPopup(i));
+        box.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openPopup(i); }
+        });
+        grid.appendChild(box);
+    });
+
+    // ======================================================
+    // POPUP LOGIC
+    // ======================================================
+    const overlay = document.getElementById('popupOverlay');
+    const popupCard = document.getElementById('popupCard');
+    const popupClose = document.getElementById('popupClose');
+    const popupEmoji = document.getElementById('popupEmoji');
+    const popupTitle = document.getElementById('popupTitle');
+    const popupMessage = document.getElementById('popupMessage');
+    const popupLinks = document.getElementById('popupLinks');
+
+    function openPopup(index) {
+        const mem = memories[index];
+        popupEmoji.textContent = mem.emoji;
+        popupTitle.textContent = mem.title;
+        popupMessage.textContent = mem.message;
+        popupLinks.innerHTML = '';
+        if (mem.songLink) popupLinks.appendChild(makeLink('A song for you', mem.songLink, 'song', 'fa-music'));
+        if (mem.videoLink) popupLinks.appendChild(makeLink('A video for you', mem.videoLink, 'video', 'fa-play'));
+        if (mem.imageLink) popupLinks.appendChild(makeLink('A memory for you', mem.imageLink, 'image', 'fa-image'));
+        if (mem.urlLink) popupLinks.appendChild(makeLink('Something special for you', mem.urlLink, 'url', 'fa-external-link-alt'));
+        overlay.classList.add('active');
+        overlay.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+        // Scroll popup card to top if previously scrolled
+        popupCard.scrollTop = 0;
+        setTimeout(() => popupClose.focus(), 120);
+    }
+
+    function closePopup() {
+        overlay.classList.remove('active');
+        overlay.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+    }
+
+    function makeLink(text, href, type, icon) {
+        const a = document.createElement('a');
+        a.href = href; a.target = '_blank'; a.rel = 'noopener noreferrer';
+        a.className = `popup-link popup-link-${type}`;
+        a.innerHTML = `<i class="fas ${icon}"></i> ${text}`;
+        return a;
+    }
+
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) closePopup(); });
+    popupClose.addEventListener('click', closePopup);
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && overlay.classList.contains('active')) closePopup(); });
+
+    // ======================================================
+    // FLOATING PETALS
+    // ======================================================
+    const petalsContainer = document.getElementById('petalsContainer');
+    const petalColors = ['#f5c6c0','#f0d0d8','#e8b8b8','#f5d5d0','#f8e0e0','#eecccc','#f0c8c8'];
+    const petalGlyphs = ['🌸','✿','❀','♥','·'];
+
+    function spawnPetal() {
+        const el = document.createElement('div');
+        el.className = 'petal';
+        if (Math.random() > 0.35) {
+            el.textContent = petalGlyphs[Math.floor(Math.random() * petalGlyphs.length)];
+            el.style.fontSize = (7 + Math.random() * 11) + 'px';
+        } else {
+            const s = 5 + Math.random() * 9;
+            el.style.width = s + 'px'; el.style.height = s + 'px';
+            el.style.background = petalColors[Math.floor(Math.random() * petalColors.length)];
+            el.style.borderRadius = '50% 0 50% 0';
+        }
+        el.style.left = (Math.random() * 100) + 'vw';
+        const dur = 9 + Math.random() * 13;
+        el.style.animationDuration = dur + 's';
+        el.style.animationDelay = (Math.random() * 4) + 's';
+        petalsContainer.appendChild(el);
+        setTimeout(() => el.remove(), (dur + 5) * 1000);
+    }
+
+    for (let i = 0; i < 10; i++) setTimeout(spawnPetal, i * 250);
+    (function petalLoop() { spawnPetal(); setTimeout(petalLoop, 700 + Math.random() * 1400); })();
+
+    // ======================================================
+    // SPARKLE PARTICLES
+    // ======================================================
+    const sparklesContainer = document.getElementById('sparklesContainer');
+    const sparkColors = ['#d4a04a','#e8c080','#f0d8a0','#c8873e','#c89860','#f0d090'];
+
+    function spawnSparkle() {
+        const el = document.createElement('div');
+        el.className = 'sparkle';
+        el.style.left = (Math.random() * 100) + 'vw';
+        el.style.top = (Math.random() * 100) + 'vh';
+        const dur = 2 + Math.random() * 3;
+        el.style.animationDuration = dur + 's';
+        el.style.animationDelay = (Math.random() * 2) + 's';
+        const s = 2 + Math.random() * 4;
+        el.style.width = s + 'px'; el.style.height = s + 'px';
+        const c = sparkColors[Math.floor(Math.random() * sparkColors.length)];
+        el.style.background = c;
+        el.style.boxShadow = `0 0 ${s * 2.5}px ${c}`;
+        sparklesContainer.appendChild(el);
+        setTimeout(() => el.remove(), (dur + 3) * 1000);
+    }
+
+    for (let i = 0; i < 14; i++) setTimeout(spawnSparkle, i * 180);
+    (function sparkleLoop() { spawnSparkle(); setTimeout(sparkleLoop, 350 + Math.random() * 750); })();
+
+    // ======================================================
+    // FAIRY LIGHTS
+    // ======================================================
+    const fairyContainer = document.getElementById('fairyLights');
+    const fairyColors = ['#ffd700','#ffb347','#ff9eaa','#f5c6c0','#e8c080','#fff8dc','#ffe4b5'];
+
+    for (let i = 0; i < 28; i++) {
+        const light = document.createElement('div');
+        light.className = 'fairy-light';
+        light.style.left = (Math.random() * 100) + '%';
+        light.style.top = (Math.random() * 100) + '%';
+        const c = fairyColors[Math.floor(Math.random() * fairyColors.length)];
+        light.style.color = c; light.style.background = c;
+        light.style.animationDuration = (2 + Math.random() * 4) + 's';
+        light.style.animationDelay = (Math.random() * 3) + 's';
+        const s = 3 + Math.random() * 5;
+        light.style.width = s + 'px'; light.style.height = s + 'px';
+        fairyContainer.appendChild(light);
+    }
+    </script>
+</body>
+</html>
